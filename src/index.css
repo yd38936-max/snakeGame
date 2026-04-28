@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=JetBrains+Mono:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-mono: "VT323", "JetBrains Mono", monospace;
+  --font-sans: "VT323", sans-serif;
+  
+  --color-neon-cyan: #00f3ff;
+  --color-neon-magenta: #ff00ff;
+  --color-neon-green: #39ff14;
+  --color-cyber-black: #080808;
+}
+
+@layer base {
+  body {
+    @apply bg-cyber-black text-neon-cyan overflow-hidden font-mono selection:bg-neon-magenta selection:text-black;
+    background-image: 
+      linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%),
+      linear-gradient(90deg, rgba(255, 0, 0, 0.08), rgba(0, 255, 0, 0.03), rgba(0, 0, 255, 0.08));
+    background-size: 100% 3px, 3px 100%;
+  }
+
+  body::before {
+    content: " ";
+    @apply fixed inset-0 pointer-events-none z-50 opacity-20;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+}
+
+@layer utilities {
+  .screen-tearing {
+    animation: tear 4s infinite linear alternate-reverse;
+  }
+
+  @keyframes tear {
+    0% { transform: skewX(0deg); filter: hue-rotate(0deg); }
+    5% { transform: skewX(5deg); filter: hue-rotate(90deg); }
+    10% { transform: skewX(0deg); filter: hue-rotate(0deg); }
+    15% { transform: skewX(-10deg); }
+    20% { transform: skewX(0deg); }
+    100% { transform: skewX(0deg); }
+  }
+
+  .glitch-heavy {
+    text-shadow: 2px 0 #ff00ff, -2px 0 #00f3ff;
+    animation: glitch-drift 0.2s infinite;
+  }
+
+  @keyframes glitch-drift {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 1px); }
+    40% { transform: translate(2px, -1px); }
+    60% { transform: translate(-1px, -2px); }
+    80% { transform: translate(1px, 2px); }
+    100% { transform: translate(0); }
+  }
+
+  .neon-box-cyan {
+    box-shadow: 0 0 10px #00f3ff, inset 0 0 10px #00f3ff;
+    border: 2px solid #00f3ff;
+  }
+
+  .neon-box-magenta {
+    box-shadow: 0 0 10px #ff00ff, inset 0 0 10px #ff00ff;
+    border: 2px solid #ff00ff;
+  }
+}
